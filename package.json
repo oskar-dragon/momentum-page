@@ -1,0 +1,34 @@
+{
+  "name": "momentum-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-prod": "NODE_ENV=production webpack --watch",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "build-dev": "NODE_ENV=development webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HerrSchade/momentum-page.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HerrSchade/momentum-page/issues"
+  },
+  "homepage": "https://github.com/HerrSchade/momentum-page#readme",
+  "devDependencies": {
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
+    "contrast-js": "^0.0.3"
+  }
+}
