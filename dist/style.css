@@ -1,16 +1,14 @@
+/*===============
+      General
+=================*/
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html,
 body {
   margin: 0;
-  padding: 0;
-}
-
-body {
   background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -18,7 +16,17 @@ body {
   background-size: cover;
   font-family: "Roboto", sans-serif;
   color: #fff;
+  letter-spacing: 1px;
 }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/*===============
+      Main
+=================*/
 
 .container {
   height: 100vh;
@@ -31,7 +39,7 @@ header,
 main,
 footer {
   margin: 0 auto;
-  width: 98%;
+  width: 97%;
   display: flex;
   flex-direction: row;
 }
@@ -42,33 +50,39 @@ footer {
 }
 
 header {
-  padding-top: 0.5em;
+  padding-top: 1em;
 }
 
 footer {
-  padding-bottom: 0.5em;
+  padding-bottom: 1em;
 }
 
 main {
   justify-content: center;
 }
 
-/* Time */
-.time {
-  font-size: 5rem;
-  margin: 0;
-}
+/*===============
+      Layout
+=================*/
 
 /* Crypto */
 
+.crypto-wrapper {
+  margin-right: 0.5em;
+}
 .crypto + .crypto {
   margin-top: 2em;
 }
 
-.crypto-details {
+.crypto__details {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.crypto__current-price--bold {
+  font-weight: 500;
 }
 
 .crypto__prices > * {
@@ -83,4 +97,41 @@ main {
 .crypto__name {
   font-weight: 700;
   font-size: 1.3rem;
+}
+
+/* Weather */
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.weather__wrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.weather__image {
+  width: 30%;
+  height: auto;
+}
+
+.weather__temp {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.weather__location {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Time */
+.time {
+  margin: 0;
+  position: relative;
+  font-size: 7rem;
+  font-weight: 700;
+  transform: translateY(-60%);
 }

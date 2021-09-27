@@ -1,6 +1,7 @@
 const imageAuthorEl = document.querySelector(".image-author");
 const cryptoWrapperEl = document.querySelector(".crypto-wrapper");
 const timeEl = document.querySelector(".time");
+const weatherEl = document.querySelector(".weather");
 
 const imageUrl =
   "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=minimal";
@@ -21,6 +22,7 @@ fetch(imageUrl)
 
 getCryptoDetails(cryptoIds);
 setInterval(updateTime, 1000);
+navigator.geolocation.getCurrentPosition(getPosition);
 
 function getCryptoDetails(cryptoIds) {
   cryptoIds.forEach(cryptoId => {
@@ -36,7 +38,6 @@ function getCryptoDetails(cryptoIds) {
       })
       .then(data => {
         cryptoData.push(data);
-        console.log(cryptoData);
         showCryptoData(data);
       })
       .catch(err => console.error(err));
@@ -46,12 +47,12 @@ function getCryptoDetails(cryptoIds) {
 function showCryptoData(crypto) {
   const html = `
     <div class="crypto">
-      <div class="crypto-details">
+      <div class="crypto__details">
         <img src="${crypto.image.small}" class="crypto__icon"><span class="crypto__name">${crypto.name}</span>
       </div>
       <div class="crypto__prices">
-        <p class="crypto__prices__current">Current price: £ ${crypto.market_data.current_price.gbp}</p>
-        <p class="crypto__prices__market-cap">Market cap: £ ${crypto.market_data.market_cap.gbp}</p>
+        <p class="crypto__current-price"><span class="crypto__current-price--bold">Price</span>:</span> £${crypto.market_data.current_price.gbp}</p>
+        <p class="crypto__market-cap"><span class="crypto__current-price--bold">Market cap:</span> £${crypto.market_data.market_cap.gbp}</p>
       </div>
     </div>`;
 
@@ -65,4 +66,40 @@ function updateTime() {
   });
 
   timeEl.innerText = `${formattedDate}`;
+}
+
+function getPosition(pos) {
+  const latitude = pos.coords.latitude;
+  const longitude = pos.coords.longitude;
+
+  updateWeather(latitude, longitude);
+}
+
+function updateWeather(latitude, longitude) {
+  fetch(
+    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${latitude}&lon=${longitude}`
+  )
+    .then(res => {
+      if (!res.ok) {
+        throw Error("Weather data not available");
+      }
+
+      return res.json();
+    })
+    .then(data => {
+      const currentTemp = Math.ceil(data.main.temp - 273);
+      const weatherImg = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      const location = data.name;
+
+      const html = `
+        <div class="weather__wrapper">
+          <img src="${weatherImg}" class="weather__image">
+          <p class="weather__temp">${currentTemp}°C</p>
+        </div>
+        <p class="weather__location">${location}</p>
+       `;
+
+      weatherEl.innerHTML = html;
+    })
+    .catch(err => console.error(err));
 }
